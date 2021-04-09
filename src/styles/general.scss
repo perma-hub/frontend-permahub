@@ -1,0 +1,17 @@
+@font-face {
+  font-family: FredokaOne;
+  src: url("~@/assets/font/FredokaOne-Regular.ttf");
+}
+
+@font-face {
+  font-family:Raleway;
+  src: url("~@/assets/font/Raleway-Regular.ttf");
+}
+
+.brand {
+  font-family: FredokaOne;
+  font-size: 1.25rem;
+}
+.v-label {
+  font-size: 14px !important;
+}
