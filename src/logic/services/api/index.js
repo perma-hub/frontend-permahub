@@ -4,15 +4,17 @@ import logger from "@/logger"
 
 export default {
 
-    getJWT() {
-        return Cookies.get("jwt")
+    getAccessToken() {
+        const jwt = Cookies.getJSON("jwt")
+        if (jwt !== undefined && "accessToken" in jwt) return jwt.accessToken
+        return null
     },
     buildConfig(config) {
         var defaultConfig = {
             crossDomain: true
         }
-        const jwt = this.getJWT()
-        if (jwt !== "undefined" && jwt !== null)
+        const jwt = this.getAccessToken()
+        if (jwt !== null)
             defaultConfig["headers"] = {
                 "Authorization": "Bearer " + jwt
             }
@@ -38,6 +40,7 @@ export default {
     },
     async request(config) {
         try {
+
             const response = await axios.request({
                 ...config,
                 ...this.buildConfig(config)

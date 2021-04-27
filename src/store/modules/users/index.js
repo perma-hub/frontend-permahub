@@ -1,4 +1,5 @@
 import Cookies from "js-cookie"
+import userService from "@/logic/services/user"
 import apiService from "@/logic/services/api"
 import logger from "@/logger"
 import { PERMAHUB_DOMAIN } from "@/constants"
@@ -20,7 +21,8 @@ const mutations = {
 
 const actions = {
     async loadUser({ commit }) {
-        const jwt = Cookies.get("jwt")
+        await userService.refreshToken()
+        const jwt = Cookies.getJSON("jwt")
         if (jwt !== undefined) {
             try {
                 const response = await apiService.get(GET_USER_URL)
