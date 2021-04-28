@@ -37,6 +37,10 @@ const actions = {
             Cookies.remove("jwt", { domain: PERMAHUB_DOMAIN })
         }
         window.location.href = PUBLIC_SERVER_URL
+    },
+    logout() {
+        Cookies.remove("jwt", { domain: PERMAHUB_DOMAIN })
+        window.location.href = PUBLIC_SERVER_URL
     }
 }
 

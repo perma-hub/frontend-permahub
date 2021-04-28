@@ -13,6 +13,9 @@ module.exports = {
   // add this function to tweak the webpack config
   webpackFinal: async (config, { configType }) => {
 
+    config.node = {
+      fs: 'empty'
+    }
     // so I can import { storyFactory } from '~storybook/util/helpers'
     config.resolve.alias['~storybook'] = path.resolve(__dirname)
     // the @ alias points to the `src/` directory, a common alias

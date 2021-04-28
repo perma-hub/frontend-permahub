@@ -31,7 +31,7 @@
           <v-list-item-content>{{ menuItem.title }}</v-list-item-content>
         </v-list-item>
         <v-divider />
-        <v-list-item>
+        <v-list-item @click="logout">
           <v-list-item-content> Logout </v-list-item-content>
           <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
         </v-list-item>
@@ -40,6 +40,8 @@
   </v-menu>
 </template>
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "UserMenu",
   props: {
@@ -56,6 +58,9 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  methods: {
+    ...mapActions("users", ["logout"]),
   },
 };
 </script>

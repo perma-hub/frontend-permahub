@@ -37,7 +37,7 @@ describe("Users module", () => {
                 assert.isTrue(axiosStubRequest.notCalled)
             })
 
-            test("should redirect to public web when jwt doesnt exist in cookies", () => {
+            test("should redirect to public web", () => {
                 assert.equal(window.location.href, "http://pub.permahub.local")
             })
         })
@@ -443,6 +443,36 @@ describe("Users module", () => {
                 assert.equal(store.getters["users/getEmail"], "email@mail.com")
             })
 
+        })
+    })
+    describe("logout", () => {
+        describe("jwt doesnt exist in cookies", () => {
+            var cookieStubRemove
+
+            beforeAll(async () => {
+
+                delete window.location
+                window.location = { href: "mock value" }
+
+                cookieStubRemove = sinon.stub(Cookies, "remove")
+
+                await store.dispatch("users/logout", null, { root: true })
+
+            })
+
+            afterAll(() => {
+                jest.restoreAllMocks()
+                sinon.restore()
+            })
+
+            test("should remove jwt cookies", () => {
+                assert.equal(cookieStubRemove.callCount, 1)
+                assert.deepEqual(cookieStubRemove.firstCall.args, ['jwt', { domain: '.permahub.local' }])
+            })
+
+            test("should redirect to public web", () => {
+                assert.equal(window.location.href, "http://pub.permahub.local")
+            })
         })
     })
 })
